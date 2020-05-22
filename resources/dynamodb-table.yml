@@ -1,0 +1,22 @@
+# =================================================================================
+# Creando recursos a través de serverless.yml -- DynamoDB
+# Estamos describiendo un recurso de tabla DynamoDB llamado NotesTable
+# =================================================================================
+
+Resources:
+  NotesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.tableName}
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: noteId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: noteId
+          KeyType: RANGE
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST
